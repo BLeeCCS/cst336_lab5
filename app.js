@@ -3,7 +3,7 @@ const app = express();
 const fetch = require("node-fetch");
 const pool = require("./dbPool.js")
 
-app.set("view engine", "ejs");
+//app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
@@ -11,7 +11,7 @@ app.get("/", async function(req, res){
     let url = `https://api.unsplash.com/photos/random/?&client_id=4Z7MM8IhVtjgawtYZzhPC_FM1jLRT4obypgMJ5coM1I&featured=true&orientation=landscape`;
     let response = await fetch(url);
     let data = await response.json();
-    res.render("index", {"imageUrl": data.urls.small});
+    res.render("index.ejs", {"imageUrl": data.urls.small});
 })
 
 app.get("/search", async function(req, res){
@@ -27,7 +27,7 @@ app.get("/search", async function(req, res){
     for (let i = 0; i < data.length; i++){
         imageUrlArray.push(data[i].urls.small);
     }
-    res.render("results", {"imageUrl": data[0].urls.small, "imageUrlArray": imageUrlArray});
+    res.render("results.ejs", {"imageUrl": data[0].urls.small, "imageUrlArray": imageUrlArray});
 })
 
 app.get("/api/updateFavorites", function(req, res){
@@ -55,7 +55,7 @@ app.get("/getKeywords",  function(req, res) {
   pool.query(sql, function (err, rows, fields) {
      if (err) throw err;
      console.log(rows);
-     res.render("favorites", {"imageUrl": imageUrl, "rows":rows});
+     res.render("favorites.ejs", {"imageUrl": imageUrl, "rows":rows});
   });  
 });//getKeywords
 
