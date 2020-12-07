@@ -8,7 +8,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 app.get("/", async function(req, res){
-    let url = `https://api.unsplash.com/photos/random/?&client_id=GBUwIJMyMSNx7a8vfuwO4JPnI_1mOmD3pXiKUNEksB0`;
+    let url = `https://api.unsplash.com/photos/random/?&client_id=4Z7MM8IhVtjgawtYZzhPC_FM1jLRT4obypgMJ5coM1I&featured=true&orientation=landscape&query=${keyword}`;
     let response = await fetch(url);
     let data = await response.json();
     res.render("index", {"imageUrl": data.urls.small});
